@@ -1,7 +1,15 @@
 import type { Metadata } from "next";
 
-import { Montserrat, Poppins } from "next/font/google";
+import { cn } from "@/lib/utils";
+import { Inter, Montserrat, Poppins, Roboto } from "next/font/google";
 import "./globals.css";
+
+const robotoHeading = Roboto({
+  subsets: ["latin"],
+  variable: "--font-heading",
+});
+
+const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
 export const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -25,8 +33,16 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="pt-BR"
-      className={`${montserrat.variable} ${poppins.variable} h-full antialiased`}
-      suppressContentEditableWarning
+      className={cn(
+        "h-full",
+        "antialiased",
+        montserrat.variable,
+        poppins.variable,
+        "font-sans",
+        inter.variable,
+        robotoHeading.variable,
+      )}
+      suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
