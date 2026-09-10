@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { TaskProvider } from "@/contexts/TaskContexts";
 import { cn } from "@/lib/utils";
 import { Inter, Montserrat, Poppins, Roboto } from "next/font/google";
 import "./globals.css";
@@ -44,7 +45,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       )}
       suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <TaskProvider>{children}</TaskProvider>
+      </body>
     </html>
   );
 }
