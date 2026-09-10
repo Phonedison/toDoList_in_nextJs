@@ -1,6 +1,6 @@
 generator client {
   provider = "prisma-client-js"
-  outpot = "../src/generated/prisma"
+  output = "../src/generated/prisma"
 }
 
 datasource db {
@@ -8,7 +8,8 @@ datasource db {
 }
 
 model Tasks{
-id String @id @default(cuid())
-task String
-done Boolean
+  id        String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  task      String
+  done      Boolean  @default(false)
+  createdAt DateTime @default(now())
 }
