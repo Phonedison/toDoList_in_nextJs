@@ -1,6 +1,7 @@
 "use client";
 
 import { AddTask } from "@/actions/add-task";
+import { DeleteTask } from "@/actions/delete-task";
 import { Tasks } from "@/generated/prisma";
 import { ReactNode, useCallback, useEffect, useState } from "react";
 import { TaskContext } from "..";
@@ -27,13 +28,32 @@ export const TaskProvider = ({ children }: TaskProviderProps) => {
   }, [fetchTasks]);
 
   const addTask = async (task: string) => {
-    if (task.length === 0 || !task) return;
-    await AddTask(task);
-    await fetchTasks();
+    try {
+      if (task.length === 0 || !task) return;
+      await AddTask(task);
+    } catch (error) {
+      throw error;
+    } finally {
+      await fetchTasks();
+    }
+  };
+
+  const deleteTask = async (id: string) => {
+    try {
+      if (!id) return;
+
+      const deletedTask = await DeleteTask(id);
+
+      if (deletedTask) return;
+    } catch (error) {
+      throw error;
+    } finally {
+      await fetchTasks();
+    }
   };
 
   return (
-    <TaskContext.Provider value={{ addTask, listItens }}>
+    <TaskContext.Provider value={{ addTask, listItens, deleteTask }}>
       {children}
     </TaskContext.Provider>
   );
