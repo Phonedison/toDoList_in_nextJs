@@ -30,7 +30,11 @@ export const ListItens = ({ items }: ListTaskProps) => {
               <p className="flex-1 px-2 tx-sm">{item.task}</p>
               <div className="flex gap-4">
                 <EditTask />
-                <Trash size={16} className="cursor-pointer" />
+                <Trash
+                  size={16}
+                  className="cursor-pointer"
+                  onClick={() => deleteTask(item.id)}
+                />
               </div>
             </div>
           );
