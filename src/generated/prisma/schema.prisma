@@ -1,0 +1,15 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Tasks {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  task      String
+  done      Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
