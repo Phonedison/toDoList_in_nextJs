@@ -3,7 +3,7 @@ import { createContext, useContext } from "react";
 
 interface TaskContextType {
   addTask: (task: string) => Promise<void>;
-  deleteTask?: () => void;
+  deleteTask: (id: string) => Promise<void>;
   alterTask?: () => void;
   isConclused?: boolean;
   listItens: Tasks[];
