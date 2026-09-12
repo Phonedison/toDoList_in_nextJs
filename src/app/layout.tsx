@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { Toaster } from "@/components/ui/sonner";
 import { TaskProvider } from "@/contexts/TaskContexts";
 import { cn } from "@/lib/utils";
 import { Inter, Montserrat, Poppins, Roboto } from "next/font/google";
@@ -46,7 +47,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
-        <TaskProvider>{children}</TaskProvider>
+        <TaskProvider>
+          <Toaster position="top-right" richColors />
+          {children}
+        </TaskProvider>
       </body>
     </html>
   );
