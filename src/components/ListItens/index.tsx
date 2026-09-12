@@ -15,7 +15,7 @@ export interface ListTaskProps {
 }
 
 export const ListItens = ({ items }: ListTaskProps) => {
-  const { deleteTask } = useTask();
+  const { deleteTask, alterTask } = useTask();
 
   return (
     <CardContent>
@@ -26,8 +26,15 @@ export const ListItens = ({ items }: ListTaskProps) => {
               key={item.id}
               className="h-14 flex justify-between items-center border-t"
             >
-              <div className="w-2 h-full bg-green-300"></div>
-              <p className="flex-1 px-2 tx-sm">{item.task}</p>
+              <div
+                className={`w-1 h-full ${item.done ? " bg-green-300 " : " bg-red-400 "}`}
+              ></div>
+              <p
+                className="flex-1 px-2 tx-sm cursor-pointer hover:text-gray-600"
+                onClick={() => alterTask(item.id)}
+              >
+                {item.task}
+              </p>
               <div className="flex gap-4">
                 <EditTask />
                 <Trash

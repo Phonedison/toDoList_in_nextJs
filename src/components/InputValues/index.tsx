@@ -13,12 +13,16 @@ export const InputInsert = () => {
     <CardContent className="flex gap-2">
       <Input
         placeholder="Adicionar tarefa"
+        value={task}
         onChange={(v) => setTask(v.target.value)}
       />
       <Button
         variant="outline"
         className="cursor-pointer"
-        onClick={() => addTask(task)}
+        onClick={() => {
+          addTask(task);
+          setTask("");
+        }}
       >
         <Plus />
         Adicionar
