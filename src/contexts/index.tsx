@@ -8,6 +8,7 @@ interface TaskContextType {
   alterConclusion: (id: string) => Promise<void>;
   isConclused?: boolean;
   listItens: Tasks[];
+  isLoading: boolean;
 }
 
 export const TaskContext = createContext<TaskContextType | undefined>(
