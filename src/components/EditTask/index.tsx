@@ -9,12 +9,16 @@ import {
 import { Input } from "@/components/ui/input";
 import { Tasks } from "@/generated/prisma";
 import { SquarePen } from "lucide-react";
+import { useState } from "react";
 
 type TaskProps = {
   item: Tasks;
 };
 
 export const EditTask = ({ item }: TaskProps) => {
+  const [editedTask, setEditedTask] = useState<string>(item.task);
+
+  const handleEditTask = () => {};
   return (
     <Dialog>
       <DialogTrigger>
@@ -25,7 +29,10 @@ export const EditTask = ({ item }: TaskProps) => {
           <DialogTitle>Editar Tarefa</DialogTitle>
         </DialogHeader>
         <div className="flex gap-2">
-          <Input placeholder="Editar tarefa" value={item.task} />
+          <Input
+            value={editedTask}
+            onChange={(e) => setEditedTask(e.target.value)}
+          />
           <Button className="cursor-pointer">Editar</Button>
         </div>
       </DialogContent>
