@@ -15,7 +15,7 @@ export interface ListTaskProps {
 }
 
 export const ListItens = ({ items }: ListTaskProps) => {
-  const { deleteTask, alterTask } = useTask();
+  const { deleteTask, alterConclusion } = useTask();
 
   return (
     <CardContent>
@@ -31,7 +31,7 @@ export const ListItens = ({ items }: ListTaskProps) => {
               ></div>
               <p
                 className="flex-1 px-2 tx-sm cursor-pointer hover:text-gray-600"
-                onClick={() => alterTask(item.id)}
+                onClick={() => alterConclusion(item.id)}
               >
                 {item.task}
               </p>
