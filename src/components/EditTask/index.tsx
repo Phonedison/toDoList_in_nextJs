@@ -7,6 +7,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { useTask } from "@/contexts";
 import { Tasks } from "@/generated/prisma";
 import { SquarePen } from "lucide-react";
 import { useState } from "react";
@@ -18,7 +19,7 @@ type TaskProps = {
 export const EditTask = ({ item }: TaskProps) => {
   const [editedTask, setEditedTask] = useState<string>(item.task);
 
-  const handleEditTask = () => {};
+  const { alterTask } = useTask();
   return (
     <Dialog>
       <DialogTrigger>
@@ -33,7 +34,12 @@ export const EditTask = ({ item }: TaskProps) => {
             value={editedTask}
             onChange={(e) => setEditedTask(e.target.value)}
           />
-          <Button className="cursor-pointer">Editar</Button>
+          <Button
+            className="cursor-pointer"
+            onClick={() => alterTask(item.id, editedTask)}
+          >
+            Editar
+          </Button>
         </div>
       </DialogContent>
     </Dialog>
