@@ -2,6 +2,7 @@
 
 import { AddTask } from "@/actions/add-task";
 import { DeleteTask } from "@/actions/delete-task";
+import { EditTask } from "@/actions/edit-task";
 import { ToggleDone } from "@/actions/toggle-done";
 import { Tasks } from "@/generated/prisma";
 import { ReactNode, useCallback, useEffect, useState } from "react";
@@ -15,7 +16,6 @@ interface TaskProviderProps {
 
 export const TaskProvider = ({ children }: TaskProviderProps) => {
   const [listItens, setListItens] = useState<Tasks[]>([]);
-  const [task, setTask] = useState<Tasks>();
 
   const fetchTasks = useCallback(async () => {
     try {
@@ -55,12 +55,13 @@ export const TaskProvider = ({ children }: TaskProviderProps) => {
     }
   };
 
-  const alterTask = async (id: string) => {
+  const alterConclusion = async (id: string) => {
     const previousTaks = [...listItens];
     try {
       setListItens((prev) => {
         const updatedTaskList = prev.map((task: Tasks) => {
           if (task.id === id) {
+            toast.info("status da tarefa alterada!");
             return {
               ...task,
               done: !task.done,
@@ -81,8 +82,25 @@ export const TaskProvider = ({ children }: TaskProviderProps) => {
     }
   };
 
+  const alterTask = async (id: string, newTask: string) => {
+    try {
+      if (!id) return;
+
+      const oldTask = listItens?.find((item) => item.id === id);
+      if (!oldTask) return;
+
+      if (oldTask.task !== newTask) EditTask(id, newTask);
+      else toast.info("Mesmo As informações não foram alteradas");
+    } catch (error) {
+      throw error;
+    } finally {
+      await fetchTasks();
+    }
+  };
   return (
-    <TaskContext.Provider value={{ addTask, listItens, deleteTask, alterTask }}>
+    <TaskContext.Provider
+      value={{ addTask, deleteTask, alterConclusion, alterTask, listItens }}
+    >
       {children}
     </TaskContext.Provider>
   );
