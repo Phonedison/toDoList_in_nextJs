@@ -23,7 +23,7 @@ const Home = () => {
 
         <Filter />
         <ListItens items={listItens} />
-        <Footer value={listItens.length} />
+        <Footer />
         {/*  */}
       </Card>
     </main>
