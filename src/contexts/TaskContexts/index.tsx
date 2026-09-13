@@ -16,13 +16,17 @@ interface TaskProviderProps {
 
 export const TaskProvider = ({ children }: TaskProviderProps) => {
   const [listItens, setListItens] = useState<Tasks[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const fetchTasks = useCallback(async () => {
     try {
+      setLoading(true);
       const data = await getTask();
       if (data) setListItens(data);
     } catch (error) {
       console.error("Erro ao carregar tarefas:", error);
+    } finally {
+      setLoading(false);
     }
   }, []);
 
@@ -32,7 +36,10 @@ export const TaskProvider = ({ children }: TaskProviderProps) => {
 
   const addTask = async (task: string) => {
     try {
-      if (task.length === 0 || !task) return;
+      if (task.length === 0 || !task) {
+        toast.error("Insira uma atividade!");
+        return;
+      }
       await AddTask(task);
       toast.success("Ativididade adicionada com sucesso!");
     } catch (error) {
@@ -99,7 +106,14 @@ export const TaskProvider = ({ children }: TaskProviderProps) => {
   };
   return (
     <TaskContext.Provider
-      value={{ addTask, deleteTask, alterConclusion, alterTask, listItens }}
+      value={{
+        addTask,
+        deleteTask,
+        alterConclusion,
+        alterTask,
+        listItens,
+        isLoading: loading,
+      }}
     >
       {children}
     </TaskContext.Provider>
