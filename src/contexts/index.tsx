@@ -9,6 +9,7 @@ interface TaskContextType {
   isConclused?: boolean;
   listItens: Tasks[];
   isLoading: boolean;
+  qtdTask: () => { qtdItem: number; qtdItemConcluded: number };
 }
 
 export const TaskContext = createContext<TaskContextType | undefined>(

@@ -104,6 +104,15 @@ export const TaskProvider = ({ children }: TaskProviderProps) => {
       await fetchTasks();
     }
   };
+
+  const qtdTask = () => {
+    const qtdItem = listItens.length;
+    const qtdItemConcluded = listItens.filter(
+      (item) => item.done === true,
+    ).length;
+
+    return { qtdItem, qtdItemConcluded };
+  };
   return (
     <TaskContext.Provider
       value={{
@@ -113,6 +122,7 @@ export const TaskProvider = ({ children }: TaskProviderProps) => {
         alterTask,
         listItens,
         isLoading: loading,
+        qtdTask,
       }}
     >
       {children}
