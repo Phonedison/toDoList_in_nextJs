@@ -3,15 +3,15 @@ import { useTask } from "@/contexts";
 import { Trash } from "lucide-react";
 import { EditTask } from "../EditTask";
 
-export type item = {
+export type Task = {
   id: string;
-  createdAt?: Date;
-  done: Boolean;
+  createdAt: Date;
+  done: boolean;
   task: string;
 };
 
 export interface ListTaskProps {
-  items: item[];
+  items: Task[];
 }
 
 export const ListItens = ({ items }: ListTaskProps) => {
@@ -20,7 +20,7 @@ export const ListItens = ({ items }: ListTaskProps) => {
   return (
     <CardContent>
       <div className=" border-b">
-        {items?.map((item) => {
+        {items.map((item) => {
           return (
             <div
               key={item.id}
@@ -36,7 +36,7 @@ export const ListItens = ({ items }: ListTaskProps) => {
                 {item.task}
               </p>
               <div className="flex gap-4">
-                <EditTask />
+                <EditTask item={item} />
                 <Trash
                   size={16}
                   className="cursor-pointer"
