@@ -2,18 +2,20 @@
 
 import { prisma } from "@/utils/db";
 
-export const EditTask = async (id: string, newValue: string) => {
-  try {
-    if (!id) return;
+export interface EditProps {
+  idTask: string;
+  newTask: string;
+}
 
-    const editTask = await prisma.tasks.update({
-      where: { id },
-      data: {
-        task: newValue,
-      },
+export const EditTask = async ({ idTask, newTask }: EditProps) => {
+  try {
+    if (newTask) return;
+
+    const editedTask = await prisma.tasks.update({
+      where: { id: idTask },
+      data: { task: newTask },
     });
-    if (!editTask) return;
-    return editTask;
+    if (!editedTask) return;
   } catch (error) {
     throw error;
   }

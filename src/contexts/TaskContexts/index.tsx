@@ -82,14 +82,14 @@ export const TaskProvider = ({ children }: TaskProviderProps) => {
     }
   };
 
-  const alterTask = async (id: string, newTask: string) => {
+  const alterTask = async (idTask: string, newTask: string) => {
     try {
-      if (!id) return;
+      if (!idTask) return;
 
-      const oldTask = listItens?.find((item) => item.id === id);
+      const oldTask = listItens?.find((item) => item.id === idTask);
       if (!oldTask) return;
 
-      if (oldTask.task !== newTask) EditTask(id, newTask);
+      if (oldTask.task !== newTask) await EditTask({ idTask, newTask });
       else toast.info("Mesmo As informações não foram alteradas");
     } catch (error) {
       throw error;
