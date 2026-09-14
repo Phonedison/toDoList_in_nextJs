@@ -11,6 +11,7 @@ interface TaskContextType {
   listItens: Tasks[];
   isLoading: boolean;
   qtdTask: () => { qtdItem: number; qtdItemConcluded: number };
+  setFilterId: (id: number) => void;
 }
 
 export const TaskContext = createContext<TaskContextType | undefined>(
