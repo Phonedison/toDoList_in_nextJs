@@ -6,6 +6,7 @@ interface TaskContextType {
   deleteTask: (id: string) => Promise<void>;
   alterTask: (id: string, newTask: string) => Promise<void>;
   alterConclusion: (id: string) => Promise<void>;
+  deleteAll: () => Promise<void>;
   isConclused?: boolean;
   listItens: Tasks[];
   isLoading: boolean;

@@ -1,7 +1,7 @@
 "use client";
 
 import { AddTask } from "@/actions/add-task";
-import { DeleteTask } from "@/actions/delete-task";
+import { DeleteAllTask, DeleteTask } from "@/actions/delete-task";
 import { EditTask } from "@/actions/edit-task";
 import { ToggleDone } from "@/actions/toggle-done";
 import { Tasks } from "@/generated/prisma";
@@ -62,6 +62,21 @@ export const TaskProvider = ({ children }: TaskProviderProps) => {
     }
   };
 
+  const deleteAll = async () => {
+    try {
+      const list = listItens.filter((item) => item.done === true);
+      if (!list) toast.info("A lista não contém tarefas concluidas");
+      else {
+        await DeleteAllTask();
+        toast.success("Todas as tarefas concluídas foram removidas!");
+      }
+    } catch (error) {
+      throw error;
+    } finally {
+      await fetchTasks();
+    }
+  };
+
   const alterConclusion = async (id: string) => {
     const previousTaks = [...listItens];
     try {
@@ -97,7 +112,7 @@ export const TaskProvider = ({ children }: TaskProviderProps) => {
       if (!oldTask) return;
 
       if (oldTask.task !== newTask) await EditTask({ idTask, newTask });
-      else toast.info("Mesmo As informações não foram alteradas");
+      else toast.info("As informações não foram alteradas");
     } catch (error) {
       throw error;
     } finally {
@@ -113,6 +128,7 @@ export const TaskProvider = ({ children }: TaskProviderProps) => {
 
     return { qtdItem, qtdItemConcluded };
   };
+
   return (
     <TaskContext.Provider
       value={{
@@ -123,6 +139,7 @@ export const TaskProvider = ({ children }: TaskProviderProps) => {
         listItens,
         isLoading: loading,
         qtdTask,
+        deleteAll,
       }}
     >
       {children}

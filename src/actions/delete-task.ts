@@ -12,3 +12,15 @@ export const DeleteTask = async (id: string) => {
     throw error;
   }
 };
+
+export const DeleteAllTask = async () => {
+  try {
+    const deletedTask = await prisma.tasks.deleteMany({
+      where: { done: true },
+    });
+    if (!deletedTask) return;
+    return deletedTask;
+  } catch (error) {
+    throw error;
+  }
+};
