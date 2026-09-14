@@ -20,6 +20,11 @@ export const ListItens = ({ items }: ListTaskProps) => {
   return (
     <CardContent>
       <div className=" border-b">
+        {items.length === 0 && (
+          <p className="text-xs border-t p-4 ">
+            Você não possui atividades cadastradas
+          </p>
+        )}
         {items.map((item) => {
           return (
             <div
@@ -27,10 +32,10 @@ export const ListItens = ({ items }: ListTaskProps) => {
               className="h-14 flex justify-between items-center border-t"
             >
               <div
-                className={`w-1 h-full ${item.done ? " bg-green-300 " : " bg-red-400 "}`}
+                className={`w-1 h-full ${item.done ? " bg-green-300" : " bg-red-400"}`}
               ></div>
               <p
-                className="flex-1 px-2 tx-sm cursor-pointer hover:text-gray-600"
+                className={`transition-all duration-500 ease-in-out flex-1 px-2 tx-sm cursor-pointer hover:text-gray-600 ${item.done && "line-through italic"}`}
                 onClick={() => alterConclusion(item.id)}
               >
                 {item.task}
